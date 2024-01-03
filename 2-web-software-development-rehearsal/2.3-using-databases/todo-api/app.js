@@ -1,9 +1,17 @@
 import postgres from "https://deno.land/x/postgresjs@v3.4.2/mod.js";
+import { load } from "https://deno.land/std@0.210.0/dotenv/mod.ts";
+const env = await load();
 
 const portConfig = { port: 7777 };
 
-// CONFIGURE POSTGRES
-const sql = postgres({});
+const sql = postgres({
+  host: env["DB_HOST"],
+  database: env["DB_DATABASE"],
+  username: env["DB_USERNAME"],
+  password: env["DB_PASSWORD"],
+  port: env["PORT"],
+  max: 2,
+});
 
 const handleGetRoot = async (request) => {
   return new Response("Hello world at root!");
