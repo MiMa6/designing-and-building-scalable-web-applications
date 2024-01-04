@@ -1,9 +1,10 @@
 import postgres from "https://deno.land/x/postgresjs@v3.4.2/mod.js";
 
+const SERVER_ID = crypto.randomUUID();
 const sql = postgres({});
 
 const handleGetRoot = async (request) => {
-  return new Response("Hello world at root!");
+  return new Response(`Hello from ${SERVER_ID}`);
 };
 
 const handleGetTodo = async (request, urlPatternResult) => {
@@ -40,6 +41,19 @@ const handlePostTodos = async (request) => {
   return new Response("OK", { status: 200 });
 };
 
+const handleDeleteTodos = async (request, urlPatternResult) => {
+  const id = urlPatternResult.pathname.groups.id;
+  const todo = await sql`SELECT * FROM todos WHERE id = ${id}`;
+  if (todo.length < 1) {
+    console.log(`Todo with id ${id} not found`);
+    return new Response("Not found", { status: 404 });
+  }
+
+  await sql`DELETE FROM todos WHERE id = ${id}`;
+  console.log("Todo deleted succesfully!");
+  return new Response("OK", { status: 200 });
+};
+
 const urlMapping = [
   {
     method: "GET",
@@ -61,6 +75,11 @@ const urlMapping = [
     pattern: new URLPattern({ pathname: "/" }),
     fn: handleGetRoot,
   },
+  {
+    method: "DELETE",
+    pattern: new URLPattern({ pathname: "/todos/:id" }),
+    fn: handleDeleteTodos,
+  },
 ];
 
 const handleRequest = async (request) => {
@@ -81,5 +100,5 @@ const handleRequest = async (request) => {
   }
 };
 
-const portConfig = { port: 7777, hostname: '0.0.0.0'};
+const portConfig = { port: 7777, hostname: "0.0.0.0" };
 Deno.serve(portConfig, handleRequest);
