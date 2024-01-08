@@ -1,0 +1,16 @@
+---
+const linkId = Astro.props.linkId || "1";
+const linkText = linkId == "1" ? "Start" : "Next";
+const text = Astro.props.text;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>My handy layout</title>
+  </head>
+  <body>
+    <a href={`/${linkId}`}>{linkText}</a>
+    <p>{text}</p>
+  </body>
+</html>

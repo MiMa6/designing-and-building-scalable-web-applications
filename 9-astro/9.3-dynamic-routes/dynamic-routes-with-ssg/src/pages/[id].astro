@@ -1,0 +1,18 @@
+---
+export const prerender = true;
+
+export const getStaticPaths = () => {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+    { params: { id: '4' } },
+  ];
+}
+
+import Layout from "../layouts/Layout.astro";
+let id = Astro.params.id;
+let nextLinkId = parseInt(id) + 1;
+---
+
+<Layout linkId={`${ nextLinkId }`} text={`You are at ${ id }.`} />
