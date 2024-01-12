@@ -1,6 +1,6 @@
 import { connect } from "../deps.js";
 
-const redis = await connect({
+const client = await connect({
   hostname: "redis",
   port: 6379,
 });
