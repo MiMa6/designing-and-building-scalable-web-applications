@@ -7,5 +7,5 @@ project.env
 
 # Local 
 LocalTesting
-
+.DS_Store
 app-cache

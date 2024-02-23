@@ -19,3 +19,15 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 7777
+          resources:
+            requests: 
+              cpu: 100m
+            limits: 
+              cpu: 200m
+          env:
+            - name: PGPASS
+              valueFrom:
+                secretKeyRef:
+                  name: my-app-database-cluster-app
+                  key: pgpass
+                  optional: false 
