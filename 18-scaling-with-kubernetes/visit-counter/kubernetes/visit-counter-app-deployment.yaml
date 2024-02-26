@@ -1,33 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app-deployment
+  name: visit-counter-app-deployment
   labels:
-    app: my-app
+    app: visit-counter-app
 spec:
   selector:
     matchLabels:
-      app: my-app
+      app: visit-counter-app
   template:
     metadata:
       labels:
-        app: my-app
+        app: visit-counter-app
     spec:
       containers:
-        - name: my-app
-          image: my-app:latest
+        - name: visit-counter-app
+          image: visit-counter-app:latest
           imagePullPolicy: Never
           ports:
             - containerPort: 7777
           resources:
-            requests: 
+            requests:
               cpu: 100m
-            limits: 
+            limits:
               cpu: 200m
           env:
             - name: PGPASS
               valueFrom:
                 secretKeyRef:
-                  name: my-app-database-cluster-app
+                  name: visit-counter-app-database-cluster-app
                   key: pgpass
-                  optional: false 
+                  optional: false
