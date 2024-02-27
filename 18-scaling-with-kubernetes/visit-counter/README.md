@@ -1,26 +1,26 @@
-# Visit coutner application
+# Visit counter application
 
 ### Step 1
-Build an image of application 
+Build an image of the application 
 ```
 terminal $ | minikube image build -t visit-counter-app -f ./Dockerfile .
 ```
 
-Depoloy the application
+Deploy the application
 
 ```
 terminal $ | kubectl apply -f kubernetes/visit-counter-app-deployment.yaml
 ```
 
 ### Step 2
-Depoloy hpa
+Deploy hpa
 
 ```
 terminal $ | kubectl apply -f kubernetes/visit-counter-app-deployment-hpa.yaml
 ```
 
 ### Step 3
-Depoloy datbase cluster
+Deploy database cluster
 
 ```
 terminal $ | kubectl apply -f kubernetes/visit-counter-app-database-cluster.yaml
@@ -32,14 +32,14 @@ Build an image of database migration
 terminal $ | minikube image build -t visit-counter-app-database-migration-job -f ./Dockerfile .
 ```
 
-Depoloy the migration job
+Deploy the migration job
 
 ```
 terminal $ | kubectl apply -f kubernetes/visit-counter-app-database-migration-job.yaml
 ```
 
 ### Step 5
-Check deployment, pods and logs
+Check deployment, pods, and logs
 
 ```
  terminal $ | kubectl get deployments
